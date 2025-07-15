@@ -1,0 +1,28 @@
+{
+  "@context": {
+    "@protected": true,
+    "id": "@id",
+    "type": "@type",
+
+  "CouponBundleCredential": "https://w3id.org/retail-dw#CouponBundleCredential",
+  
+  "barcode": {
+    "@id": "https://w3id.org/retail-benefits#barcode",
+    "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+  "bundleMatcher": {
+    "@id": "https://w3id.org/retail-benefits#bundleMatcher",
+    "@type": "@id"
+    },
+  "description": "https://schema.org/description",
+  "image": {
+    "@id": "https://schema.org/image",
+    "@type": "@id"
+    },
+  "name": "https://schema.org/name",
+  "renderMethod": {
+    "@id": "https://www.w3.org/2018/credentials#renderMethod",
+    "@type": "@id"
+    }
+  }
+}
