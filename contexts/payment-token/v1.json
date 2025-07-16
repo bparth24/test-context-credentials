@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "@protected": true,
+    "id": "@id",
+    "type": "@type",
+
+  "PaymentTokenCredential": "https://w3id.org/retail-dw#PaymentTokenCredential",
+
+  "token": {
+    "@id": "https://w3id.org/retail-benefits#token",
+    "@type": "http://www.w3.org/2001/XMLSchema#string"
+    }
+  }
+}
