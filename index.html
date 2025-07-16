@@ -215,37 +215,15 @@
 
             <div class="section">
                 <h2>📁 Context Files</h2>
-                <div class="file-grid">
-                    <div class="file-card">
-                        <h3>Coupon Bundle Context v2</h3>
-                        <p>JSON-LD context for CouponBundleCredential with barcode, bundleMatcher, and rendering properties.</p>
-                        <div class="file-links">
-                            <a href="./contexts/coupon-bundle/v2.json" class="btn btn-primary" target="_blank">View JSON</a>
-                            <a href="https://github.com/bparth24/test-context-credentials/blob/main/contexts/coupon-bundle/v2.json" class="btn btn-secondary" target="_blank">GitHub</a>
-                            <button class="btn btn-success copy-btn" onclick="copyUrl('https://bparth24.github.io/test-context-credentials/contexts/coupon-bundle/v2.json')">Copy URL</button>
-                        </div>
-                        <div class="url-display">
-                            <strong>Direct URL:</strong> https://bparth24.github.io/test-context-credentials/contexts/coupon-bundle/v2.json
-                        </div>
-                    </div>
+                <div id="context-files" class="file-grid">
+                    <!-- Context files will be loaded dynamically -->
                 </div>
             </div>
 
             <div class="section">
                 <h2>📄 Sample Credentials</h2>
-                <div class="file-grid">
-                    <div class="file-card">
-                        <h3>Sample Coupon Bundle Credential</h3>
-                        <p>Example verifiable credential using the CouponBundleCredential context.</p>
-                        <div class="file-links">
-                            <a href="./credentials/coupon-bundle/credential.json" class="btn btn-primary" target="_blank">View JSON</a>
-                            <a href="https://github.com/bparth24/test-context-credentials/blob/main/credentials/coupon-bundle/credential.json" class="btn btn-secondary" target="_blank">GitHub</a>
-                            <button class="btn btn-success copy-btn" onclick="copyUrl('https://bparth24.github.io/test-context-credentials/credentials/coupon-bundle/credential.json')">Copy URL</button>
-                        </div>
-                        <div class="url-display">
-                            <strong>Direct URL:</strong> https://bparth24.github.io/test-context-credentials/credentials/coupon-bundle/credential.json
-                        </div>
-                    </div>
+                <div id="credential-files" class="file-grid">
+                    <!-- Credential files will be loaded dynamically -->
                 </div>
             </div>
 
@@ -269,6 +247,11 @@
     </div>
 
     <script>
+        const REPO_OWNER = 'bparth24';
+        const REPO_NAME = 'test-context-credentials';
+        const BASE_URL = `https://${REPO_OWNER}.github.io/${REPO_NAME}`;
+        const GITHUB_API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
+
         function copyUrl(url) {
             navigator.clipboard.writeText(url).then(function() {
                 // Show a brief success message
@@ -282,19 +265,111 @@
             });
         }
 
-        // Add some interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.file-card');
+        function createFileCard(file, type) {
+            const pathParts = file.path.split('/');
+            const fileName = pathParts[pathParts.length - 1];
+            const directory = pathParts.slice(0, -1).join('/');
             
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
+            const card = document.createElement('div');
+            card.className = 'file-card';
+            
+            // Generate a display name from the file path
+            const displayName = file.path
+                .replace(/\//g, ' → ')
+                .replace(/\.json$/, '')
+                .replace(/([a-z])([A-Z])/g, '$1 $2')
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+            
+            const githubUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/blob/main/${file.path}`;
+            const hostedUrl = `${BASE_URL}/${file.path}`;
+            
+            card.innerHTML = `
+                <h3>${displayName}</h3>
+                <p>Path: ${file.path}</p>
+                <div class="file-links">
+                    <a href="./${file.path}" class="btn btn-primary" target="_blank">View JSON</a>
+                    <a href="${githubUrl}" class="btn btn-secondary" target="_blank">GitHub</a>
+                    <button class="btn btn-success copy-btn" onclick="copyUrl('${hostedUrl}')">Copy URL</button>
+                </div>
+                <div class="url-display">
+                    <strong>Direct URL:</strong> ${hostedUrl}
+                </div>
+            `;
+            
+            return card;
+        }
+
+        async function loadFilesFromDirectory(directory, containerId) {
+            try {
+                const response = await fetch(`${GITHUB_API_URL}/${directory}`);
+                const files = await response.json();
+                
+                const container = document.getElementById(containerId);
+                const jsonFiles = [];
+                
+                // Recursively find all JSON files
+                async function findJsonFiles(items, currentPath = '') {
+                    for (const item of items) {
+                        if (item.type === 'file' && item.name.endsWith('.json')) {
+                            jsonFiles.push({
+                                path: currentPath ? `${currentPath}/${item.name}` : item.name,
+                                name: item.name
+                            });
+                        } else if (item.type === 'dir') {
+                            try {
+                                const subResponse = await fetch(item.url);
+                                const subFiles = await subResponse.json();
+                                await findJsonFiles(subFiles, currentPath ? `${currentPath}/${item.name}` : item.name);
+                            } catch (error) {
+                                console.log(`Could not access directory: ${item.path}`);
+                            }
+                        }
+                    }
+                }
+                
+                await findJsonFiles(files, directory);
+                
+                if (jsonFiles.length === 0) {
+                    container.innerHTML = '<p>No JSON files found in this directory.</p>';
+                    return;
+                }
+                
+                jsonFiles.forEach(file => {
+                    const fullPath = directory ? `${directory}/${file.path}` : file.path;
+                    const card = createFileCard({path: fullPath}, containerId.replace('-files', ''));
+                    container.appendChild(card);
                 });
                 
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
+            } catch (error) {
+                console.error(`Error loading files from ${directory}:`, error);
+                document.getElementById(containerId).innerHTML = 
+                    `<p>Could not load files from ${directory}. They may not exist yet.</p>`;
+            }
+        }
+
+        // Load files when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Load context files
+            await loadFilesFromDirectory('contexts', 'context-files');
+            
+            // Load credential files  
+            await loadFilesFromDirectory('credentials', 'credential-files');
+            
+            // Add hover effects to cards after they're loaded
+            setTimeout(() => {
+                const cards = document.querySelectorAll('.file-card');
+                cards.forEach(card => {
+                    card.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-5px)';
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0)';
+                    });
                 });
-            });
+            }, 1000);
         });
     </script>
 </body>
