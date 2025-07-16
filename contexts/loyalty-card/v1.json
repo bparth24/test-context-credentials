@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "@protected": true,
+    "id": "@id",
+    "type": "@type",
+
+  "LoyaltyCardCredential": "https://w3id.org/retail-dw#LoyaltyCardCredential",
+  
+  "accountIdentifier": {
+    "@id": "https://w3id.org/retail-benefits#accountIdentifier",
+    "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+  "barcode": {
+    "@id": "https://w3id.org/retail-benefits#barcode",
+    "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+  "programIdentifier": {
+    "@id": "https://w3id.org/retail-benefits#programIdentifier",
+    "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+  "description": "https://schema.org/description",
+  "image": {
+    "@id": "https://schema.org/image",
+    "@type": "@id"
+    },
+  "name": "https://schema.org/name",
+  "renderMethod": {
+    "@id": "https://www.w3.org/2018/credentials#renderMethod",
+    "@type": "@id"
+    }
+  }
+}
