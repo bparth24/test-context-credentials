@@ -105,49 +105,6 @@ Reference any context file in your credentials by using the GitHub Pages URL:
 - **Credential Verification**: Verify issued credentials
 - **Credential Presentation**: Create and verify presentations
 
-## 📝 Example Usage
-
-### 1. Coupon Bundle Credential
-
-```json
-{
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2",
-    "https://bparth24.github.io/test-context-credentials/contexts/coupon-bundle/v2.json"
-  ],
-  "type": ["VerifiableCredential", "CouponBundleCredential"],
-  "issuer": {
-    "id": "did:example:couponcompany123",
-    "name": "Clipco Coupon Company"
-  },
-  "credentialSubject": {
-    "id": "did:example:customer456",
-    "barcode": "0123456789010479832",
-    "name": "ClipCo Coupons",
-    "bundleMatcher": "https://couponbureau.example/matcher"
-  }
-}
-```
-
-### 2. Loyalty Card Credential
-
-```json
-{
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2",
-    "https://bparth24.github.io/test-context-credentials/contexts/loyalty-card/v1.json"
-  ],
-  "type": ["VerifiableCredential", "LoyaltyCardCredential"],
-  "issuer": "did:example:retailer123",
-  "credentialSubject": {
-    "id": "did:example:customer456",
-    "cardNumber": "LC-789-456-123",
-    "points": 2500,
-    "tier": "Gold"
-  }
-}
-```
-
 ## 🔍 Finding Context Files
 
 ### Using the Web Interface
