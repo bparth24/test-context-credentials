@@ -21,7 +21,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 12px;
@@ -51,66 +51,194 @@
             padding: 40px 20px;
         }
 
+        .search-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: #3498db;
+        }
+
+        .search-box::placeholder {
+            color: #aaa;
+        }
+
         .section {
             margin-bottom: 40px;
         }
 
-        .section h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-
-        .file-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .file-card {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .file-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            border-color: #3498db;
-        }
-
-        .file-card h3 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        .file-card p {
-            color: #666;
-            margin-bottom: 15px;
-            font-size: 0.9em;
-        }
-
-        .file-links {
+        .section-header {
             display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 2px solid #3498db;
+            margin-bottom: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
+        }
+
+        .section-header .count {
+            background: #3498db;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: normal;
+        }
+
+        .collapse-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .section.collapsed .collapse-icon {
+            transform: rotate(-90deg);
+        }
+
+        .section.collapsed .section-content {
+            display: none;
+        }
+
+        .folder-tree {
+            margin-left: 0;
+        }
+
+        .folder {
+            margin-bottom: 10px;
+        }
+
+        .folder-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .folder-header:hover {
+            background: #e9ecef;
+        }
+
+        .folder-header .icon {
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        .folder-header .file-count {
+            margin-left: auto;
+            background: #6c757d;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+        }
+
+        .folder.collapsed .folder-files {
+            display: none;
+        }
+
+        .folder.collapsed .folder-header .icon::before {
+            content: "📁";
+        }
+
+        .folder:not(.collapsed) .folder-header .icon::before {
+            content: "📂";
+        }
+
+        .folder-files {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .file-item:hover {
+            border-color: #3498db;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
+        }
+
+        .file-item.hidden {
+            display: none;
+        }
+
+        .file-icon {
+            margin-right: 12px;
+            font-size: 1.1em;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 2px;
+            word-break: break-word;
+        }
+
+        .file-path {
+            font-size: 0.9em;
+            color: #6c757d;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
         }
 
         .btn {
-            display: inline-block;
-            padding: 8px 16px;
+            padding: 6px 12px;
             text-decoration: none;
             border-radius: 4px;
-            font-size: 0.9em;
+            font-size: 0.85em;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 0.8em;
         }
 
         .btn-primary {
@@ -140,32 +268,6 @@
             background: #219a52;
         }
 
-        .url-display {
-            background: #f1f2f6;
-            padding: 15px;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            border-left: 4px solid #3498db;
-            margin-top: 15px;
-            word-break: break-all;
-        }
-
-        .copy-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.8em;
-            margin-left: 10px;
-        }
-
-        .copy-btn:hover {
-            background: #c0392b;
-        }
-
         .info-box {
             background: #e8f4f8;
             border: 1px solid #bee5eb;
@@ -184,9 +286,50 @@
             margin-bottom: 5px;
         }
 
+        .stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #3498db;
+            display: block;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
         @media (max-width: 768px) {
-            .file-grid {
-                grid-template-columns: 1fr;
+            .file-actions {
+                flex-direction: column;
+                gap: 4px;
             }
             
             .header h1 {
@@ -195,6 +338,18 @@
             
             .content {
                 padding: 20px;
+            }
+
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .file-actions {
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-between;
             }
         }
     </style>
@@ -213,26 +368,63 @@
                 <p><strong>Base URL:</strong> https://bparth24.github.io/test-context-credentials/</p>
             </div>
 
-            <div class="section">
-                <h2>📁 Context Files</h2>
-                <div id="context-files" class="file-grid">
-                    <!-- Context files will be loaded dynamically -->
+            <div class="stats" id="stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="context-count">-</span>
+                    <span class="stat-label">Context Files</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="credential-count">-</span>
+                    <span class="stat-label">Credentials</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="total-count">-</span>
+                    <span class="stat-label">Total Files</span>
+                </div>
+            </div>
+
+            <div class="search-section">
+                <input type="text" class="search-box" id="search-input" placeholder="🔍 Search for files, paths, or directories...">
+            </div>
+
+            <div class="section" id="context-section">
+                <div class="section-header" onclick="toggleSection('context-section')">
+                    <h2>
+                        📁 Context Files 
+                        <span class="count" id="context-display-count">0</span>
+                    </h2>
+                    <div class="collapse-icon">▼</div>
+                </div>
+                <div class="section-content">
+                    <div id="context-files" class="folder-tree">
+                        <div class="loading">Loading context files...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="credential-section">
+                <div class="section-header" onclick="toggleSection('credential-section')">
+                    <h2>
+                        📄 Sample Credentials 
+                        <span class="count" id="credential-display-count">0</span>
+                    </h2>
+                    <div class="collapse-icon">▼</div>
+                </div>
+                <div class="section-content">
+                    <div id="credential-files" class="folder-tree">
+                        <div class="loading">Loading credential files...</div>
+                    </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2>📄 Sample Credentials</h2>
-                <div id="credential-files" class="file-grid">
-                    <!-- Credential files will be loaded dynamically -->
+                <div class="section-header">
+                    <h2>🔧 Usage</h2>
                 </div>
-            </div>
-
-            <div class="section">
-                <h2>🔧 Usage</h2>
                 <div class="info-box">
                     <h4>Using in Verifiable Credentials</h4>
                     <p>Reference the context in your credentials:</p>
-                    <div class="url-display">
+                    <div style="background: #f1f2f6; padding: 15px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 0.9em; border-left: 4px solid #3498db; margin-top: 15px; word-break: break-all;">
 {<br>
 &nbsp;&nbsp;"@context": [<br>
 &nbsp;&nbsp;&nbsp;&nbsp;"https://www.w3.org/ns/credentials/v2",<br>
@@ -252,76 +444,138 @@
         const BASE_URL = `https://${REPO_OWNER}.github.io/${REPO_NAME}`;
         const GITHUB_API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
 
+        let allFiles = [];
+
         function copyUrl(url) {
             navigator.clipboard.writeText(url).then(function() {
-                // Show a brief success message
-                const originalText = event.target.textContent;
-                event.target.textContent = 'Copied!';
-                event.target.style.background = '#27ae60';
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#27ae60';
                 setTimeout(() => {
-                    event.target.textContent = originalText;
-                    event.target.style.background = '#e74c3c';
+                    button.textContent = originalText;
+                    button.style.background = '#e74c3c';
                 }, 1500);
             });
         }
 
-        function createFileCard(file, type) {
-            const pathParts = file.path.split('/');
-            const fileName = pathParts[pathParts.length - 1];
-            const directory = pathParts.slice(0, -1).join('/');
-            
-            const card = document.createElement('div');
-            card.className = 'file-card';
-            
-            // Generate a display name from the file path
-            const displayName = file.path
-                .replace(/\//g, ' → ')
-                .replace(/\.json$/, '')
-                .replace(/([a-z])([A-Z])/g, '$1 $2')
-                .split(' ')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
-            
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('collapsed');
+        }
+
+        function toggleFolder(folderId) {
+            const folder = document.getElementById(folderId);
+            folder.classList.toggle('collapsed');
+        }
+
+        function createFileItem(file, type) {
             const githubUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/blob/main/${file.path}`;
             const hostedUrl = `${BASE_URL}/${file.path}`;
             
-            card.innerHTML = `
-                <h3>${displayName}</h3>
-                <p>Path: ${file.path}</p>
-                <div class="file-links">
-                    <a href="./${file.path}" class="btn btn-primary" target="_blank">View JSON</a>
-                    <a href="${githubUrl}" class="btn btn-secondary" target="_blank">GitHub</a>
-                    <button class="btn btn-success copy-btn" onclick="copyUrl('${hostedUrl}')">Copy URL</button>
+            const item = document.createElement('div');
+            item.className = 'file-item';
+            item.setAttribute('data-path', file.path.toLowerCase());
+            item.setAttribute('data-name', file.name.toLowerCase());
+            
+            const icon = type === 'context' ? '🎯' : '📋';
+            
+            item.innerHTML = `
+                <div class="file-icon">${icon}</div>
+                <div class="file-info">
+                    <div class="file-name">${file.name}</div>
+                    <div class="file-path">${file.path}</div>
                 </div>
-                <div class="url-display">
-                    <strong>Direct URL:</strong> ${hostedUrl}
+                <div class="file-actions">
+                    <a href="./${file.path}" class="btn btn-primary btn-sm" target="_blank">View</a>
+                    <a href="${githubUrl}" class="btn btn-secondary btn-sm" target="_blank">GitHub</a>
+                    <button class="btn btn-success btn-sm" onclick="copyUrl('${hostedUrl}')">Copy URL</button>
                 </div>
             `;
             
-            return card;
+            return item;
         }
 
-        async function loadFilesFromDirectory(directory, containerId) {
+        function createFolderStructure(files, containerId, type) {
+            const container = document.getElementById(containerId);
+            
+            if (files.length === 0) {
+                container.innerHTML = '<div class="no-results">No JSON files found in this directory.</div>';
+                return;
+            }
+
+            // Group files by directory
+            const folders = {};
+            files.forEach(file => {
+                const pathParts = file.path.split('/');
+                if (pathParts.length > 1) {
+                    const folderPath = pathParts.slice(0, -1).join('/');
+                    if (!folders[folderPath]) {
+                        folders[folderPath] = [];
+                    }
+                    folders[folderPath].push(file);
+                } else {
+                    // Root level files
+                    if (!folders['']) {
+                        folders[''] = [];
+                    }
+                    folders[''].push(file);
+                }
+            });
+
+            container.innerHTML = '';
+
+            // Create folders
+            Object.keys(folders).sort().forEach(folderPath => {
+                const folderFiles = folders[folderPath];
+                const folderId = `folder-${type}-${folderPath.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                
+                const folderDiv = document.createElement('div');
+                folderDiv.className = 'folder';
+                folderDiv.id = folderId;
+                
+                const displayPath = folderPath || `${type} (root)`;
+                
+                folderDiv.innerHTML = `
+                    <div class="folder-header" onclick="toggleFolder('${folderId}')">
+                        <span class="icon"></span>
+                        <span>${displayPath}</span>
+                        <span class="file-count">${folderFiles.length}</span>
+                    </div>
+                    <div class="folder-files"></div>
+                `;
+                
+                const filesContainer = folderDiv.querySelector('.folder-files');
+                folderFiles.forEach(file => {
+                    const fileItem = createFileItem(file, type);
+                    filesContainer.appendChild(fileItem);
+                });
+                
+                container.appendChild(folderDiv);
+            });
+        }
+
+        async function loadFilesFromDirectory(directory, containerId, type) {
             try {
                 const response = await fetch(`${GITHUB_API_URL}/${directory}`);
                 const files = await response.json();
                 
-                const container = document.getElementById(containerId);
                 const jsonFiles = [];
                 
-                // Recursively find all JSON files
                 async function findJsonFiles(items, currentPath = '') {
                     for (const item of items) {
                         if (item.type === 'file' && item.name.endsWith('.json')) {
+                            const fullPath = currentPath ? `${currentPath}/${item.name}` : item.name;
                             jsonFiles.push({
-                                path: currentPath ? `${currentPath}/${item.name}` : item.name,
+                                path: `${directory}/${fullPath}`,
                                 name: item.name
                             });
                         } else if (item.type === 'dir') {
                             try {
                                 const subResponse = await fetch(item.url);
                                 const subFiles = await subResponse.json();
-                                await findJsonFiles(subFiles, currentPath ? `${currentPath}/${item.name}` : item.name);
+                                const subPath = currentPath ? `${currentPath}/${item.name}` : item.name;
+                                await findJsonFiles(subFiles, subPath);
                             } catch (error) {
                                 console.log(`Could not access directory: ${item.path}`);
                             }
@@ -331,45 +585,88 @@
                 
                 await findJsonFiles(files, '');
                 
-                if (jsonFiles.length === 0) {
-                    container.innerHTML = '<p>No JSON files found in this directory.</p>';
-                    return;
-                }
+                // Store files for search
+                allFiles = allFiles.concat(jsonFiles.map(f => ({...f, type})));
                 
-                jsonFiles.forEach(file => {
-                    const fullPath = directory ? `${directory}/${file.path}` : file.path;
-                    const card = createFileCard({path: fullPath}, containerId.replace('-files', ''));
-                    container.appendChild(card);
-                });
+                createFolderStructure(jsonFiles, containerId, type);
+                
+                // Update counts
+                document.getElementById(`${type}-count`).textContent = jsonFiles.length;
+                document.getElementById(`${type}-display-count`).textContent = jsonFiles.length;
+                
+                const total = allFiles.length;
+                document.getElementById('total-count').textContent = total;
+                
+                return jsonFiles.length;
                 
             } catch (error) {
                 console.error(`Error loading files from ${directory}:`, error);
                 document.getElementById(containerId).innerHTML = 
-                    `<p>Could not load files from ${directory}. They may not exist yet.</p>`;
+                    `<div class="no-results">Could not load files from ${directory}. They may not exist yet.</div>`;
+                return 0;
             }
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('search-input');
+            
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                
+                // Get all file items
+                const fileItems = document.querySelectorAll('.file-item');
+                let contextVisible = 0;
+                let credentialVisible = 0;
+                
+                fileItems.forEach(item => {
+                    const path = item.getAttribute('data-path');
+                    const name = item.getAttribute('data-name');
+                    
+                    const matches = !query || 
+                                  path.includes(query) || 
+                                  name.includes(query);
+                    
+                    if (matches) {
+                        item.classList.remove('hidden');
+                        const type = item.closest('#context-files') ? 'context' : 'credential';
+                        if (type === 'context') contextVisible++;
+                        else credentialVisible++;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+                
+                // Update display counts
+                document.getElementById('context-display-count').textContent = contextVisible;
+                document.getElementById('credential-display-count').textContent = credentialVisible;
+                
+                // Show/hide folders based on whether they have visible files
+                document.querySelectorAll('.folder').forEach(folder => {
+                    const visibleFiles = folder.querySelectorAll('.file-item:not(.hidden)');
+                    const fileCount = folder.querySelector('.file-count');
+                    if (visibleFiles.length > 0) {
+                        folder.style.display = 'block';
+                        fileCount.textContent = visibleFiles.length;
+                        folder.classList.remove('collapsed'); // Auto-expand when searching
+                    } else {
+                        folder.style.display = query ? 'none' : 'block';
+                        if (!query) fileCount.textContent = folder.querySelectorAll('.file-item').length;
+                    }
+                });
+            });
         }
 
         // Load files when page loads
         document.addEventListener('DOMContentLoaded', async function() {
-            // Load context files
-            await loadFilesFromDirectory('contexts', 'context-files');
+            // Setup search
+            setupSearch();
             
-            // Load credential files  
-            await loadFilesFromDirectory('credentials', 'credential-files');
-            
-            // Add hover effects to cards after they're loaded
-            setTimeout(() => {
-                const cards = document.querySelectorAll('.file-card');
-                cards.forEach(card => {
-                    card.addEventListener('mouseenter', function() {
-                        this.style.transform = 'translateY(-5px)';
-                    });
-                    
-                    card.addEventListener('mouseleave', function() {
-                        this.style.transform = 'translateY(0)';
-                    });
-                });
-            }, 1000);
+            // Load files
+            const [contextCount, credentialCount] = await Promise.all([
+                loadFilesFromDirectory('contexts', 'context-files', 'context'),
+                loadFilesFromDirectory('credentials', 'credential-files', 'credential')
+            ]);
         });
     </script>
 </body>
