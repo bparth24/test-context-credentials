@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "@protected": true,
+    "id": "@id",
+    "type": "@type",
+
+  "AgeVerificationCredential": "https://w3id.org/retail-dw#AgeVerificationCredential",
+
+  "anchoredResource": {
+      "@id": "https://w3id.org/retail-benefits#anchoredResource",
+      "@type": "@id"
+    },
+  "digestMultibase": {
+      "@id": "https://w3id.org/retail-benefits#digestMultibase", 
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+  "overAge": {
+      "@id": "https://w3id.org/retail-benefits#overAge",
+      "@type": "http://www.w3.org/2001/XMLSchema#integer" 
+    },
+  "refreshToken": {
+      "@id": "https://w3id.org/retail-benefits#refreshToken",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+  "name": "https://schema.org/name",
+  "image": {
+    "@id": "https://schema.org/image",
+    "@type": "@id"
+    },
+  "url": {
+      "@id": "https://schema.org/url",
+      "@type": "@id"
+    }
+  }
+}
