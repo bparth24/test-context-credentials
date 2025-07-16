@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Context Credentials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .file-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .file-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .file-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .file-card p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .file-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #219a52;
+        }
+
+        .url-display {
+            background: #f1f2f6;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border-left: 4px solid #3498db;
+            margin-top: 15px;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #c0392b;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border: 1px solid #bee5eb;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h4 {
+            color: #0c5460;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #0c5460;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .file-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Test Context Credentials</h1>
+            <p>JSON-LD Context Files for Verifiable Credentials</p>
+        </div>
+
+        <div class="content">
+            <div class="info-box">
+                <h4>🚀 GitHub Pages Setup</h4>
+                <p>This repository is hosted on GitHub Pages. All context files are accessible via direct URLs.</p>
+                <p><strong>Base URL:</strong> https://bparth24.github.io/test-context-credentials/</p>
+            </div>
+
+            <div class="section">
+                <h2>📁 Context Files</h2>
+                <div class="file-grid">
+                    <div class="file-card">
+                        <h3>Coupon Bundle Context v2</h3>
+                        <p>JSON-LD context for CouponBundleCredential with barcode, bundleMatcher, and rendering properties.</p>
+                        <div class="file-links">
+                            <a href="./contexts/coupon-bundle/v2.json" class="btn btn-primary" target="_blank">View JSON</a>
+                            <a href="https://github.com/bparth24/test-context-credentials/blob/main/contexts/coupon-bundle/v2.json" class="btn btn-secondary" target="_blank">GitHub</a>
+                            <button class="btn btn-success copy-btn" onclick="copyUrl('https://bparth24.github.io/test-context-credentials/contexts/coupon-bundle/v2.json')">Copy URL</button>
+                        </div>
+                        <div class="url-display">
+                            <strong>Direct URL:</strong> https://bparth24.github.io/test-context-credentials/contexts/coupon-bundle/v2.json
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📄 Sample Credentials</h2>
+                <div class="file-grid">
+                    <div class="file-card">
+                        <h3>Sample Coupon Bundle Credential</h3>
+                        <p>Example verifiable credential using the CouponBundleCredential context.</p>
+                        <div class="file-links">
+                            <a href="./credentials/coupon-bundle/credential.json" class="btn btn-primary" target="_blank">View JSON</a>
+                            <a href="https://github.com/bparth24/test-context-credentials/blob/main/credentials/coupon-bundle/credential.json" class="btn btn-secondary" target="_blank">GitHub</a>
+                            <button class="btn btn-success copy-btn" onclick="copyUrl('https://bparth24.github.io/test-context-credentials/credentials/coupon-bundle/credential.json')">Copy URL</button>
+                        </div>
+                        <div class="url-display">
+                            <strong>Direct URL:</strong> https://bparth24.github.io/test-context-credentials/credentials/coupon-bundle/credential.json
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔧 Usage</h2>
+                <div class="info-box">
+                    <h4>Using in Verifiable Credentials</h4>
+                    <p>Reference the context in your credentials:</p>
+                    <div class="url-display">
+{<br>
+&nbsp;&nbsp;"@context": [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"https://www.w3.org/ns/credentials/v2",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"https://bparth24.github.io/test-context-credentials/contexts/coupon-bundle/v2.json"<br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;"type": ["VerifiableCredential", "CouponBundleCredential"]<br>
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyUrl(url) {
+            navigator.clipboard.writeText(url).then(function() {
+                // Show a brief success message
+                const originalText = event.target.textContent;
+                event.target.textContent = 'Copied!';
+                event.target.style.background = '#27ae60';
+                setTimeout(() => {
+                    event.target.textContent = originalText;
+                    event.target.style.background = '#e74c3c';
+                }, 1500);
+            });
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.file-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
