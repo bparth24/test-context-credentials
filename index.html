@@ -329,7 +329,7 @@
                     }
                 }
                 
-                await findJsonFiles(files, directory);
+                await findJsonFiles(files, '');
                 
                 if (jsonFiles.length === 0) {
                     container.innerHTML = '<p>No JSON files found in this directory.</p>';
