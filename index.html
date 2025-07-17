@@ -375,7 +375,7 @@
                 </div>
                 <div class="stat-item">
                     <span class="stat-number" id="credential-count">-</span>
-                    <span class="stat-label">Credentials</span>
+                    <span class="stat-label">Credentials & Queries</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number" id="total-count">-</span>
@@ -405,18 +405,17 @@
             <div class="section" id="credential-section">
                 <div class="section-header" onclick="toggleSection('credential-section')">
                     <h2>
-                        📄 Sample Credentials 
+                        📄 Sample Credentials & Queries 
                         <span class="count" id="credential-display-count">0</span>
                     </h2>
                     <div class="collapse-icon">▼</div>
                 </div>
                 <div class="section-content">
                     <div id="credential-files" class="folder-tree">
-                        <div class="loading">Loading credential files...</div>
+                        <div class="loading">Loading credential and query files...</div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -460,12 +459,30 @@
             item.setAttribute('data-path', file.path.toLowerCase());
             item.setAttribute('data-name', file.name.toLowerCase());
             
-            const icon = type === 'context' ? '🎯' : '📋';
+            let icon, fileType;
+            if (type === 'context') {
+                icon = '🎯';
+                fileType = 'Context';
+            } else if (file.name === 'credential.json') {
+                icon = '📋';
+                fileType = 'Credential';
+            } else if (file.name === 'queries.json') {
+                icon = '🔍';
+                fileType = 'Query';
+            } else {
+                icon = '📄';
+                fileType = 'File';
+            }
+            
+            // Create a display name that includes the file type
+            const pathParts = file.path.split('/');
+            const directory = pathParts.slice(1, -1).join('/'); // Remove 'credentials'/'contexts' and filename
+            const displayName = directory ? `${directory} → ${fileType}` : fileType;
             
             item.innerHTML = `
                 <div class="file-icon">${icon}</div>
                 <div class="file-info">
-                    <div class="file-name">${file.name}</div>
+                    <div class="file-name">${displayName}</div>
                     <div class="file-path">${file.path}</div>
                 </div>
                 <div class="file-actions">
@@ -546,12 +563,23 @@
                 
                 async function findJsonFiles(items, currentPath = '') {
                     for (const item of items) {
-                        if (item.type === 'file' && item.name.endsWith('.json')) {
-                            const fullPath = currentPath ? `${currentPath}/${item.name}` : item.name;
-                            jsonFiles.push({
-                                path: `${directory}/${fullPath}`,
-                                name: item.name
-                            });
+                        if (item.type === 'file') {
+                            // For contexts directory: include all .json files
+                            // For credentials directory: include only credential.json and queries.json
+                            if (directory === 'contexts' && item.name.endsWith('.json')) {
+                                const fullPath = currentPath ? `${currentPath}/${item.name}` : item.name;
+                                jsonFiles.push({
+                                    path: `${directory}/${fullPath}`,
+                                    name: item.name
+                                });
+                            } else if (directory === 'credentials' && 
+                                     (item.name === 'credential.json' || item.name === 'queries.json')) {
+                                const fullPath = currentPath ? `${currentPath}/${item.name}` : item.name;
+                                jsonFiles.push({
+                                    path: `${directory}/${fullPath}`,
+                                    name: item.name
+                                });
+                            }
                         } else if (item.type === 'dir') {
                             try {
                                 const subResponse = await fetch(item.url);
