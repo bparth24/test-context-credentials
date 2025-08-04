@@ -412,6 +412,12 @@
                     <div class="collapse-icon">▼</div>
                 </div>
                 <div class="section-content">
+                    <div class="info-box" style="background: #f8f9fa; border-color: #dee2e6; margin-bottom: 20px;">
+                        <h4 style="color: #495057;">📝 File Versioning</h4>
+                        <p style="color: #495057; margin-bottom: 8px;"><strong>Standard files:</strong> credential.json, queries.json</p>
+                        <p style="color: #495057; margin-bottom: 8px;"><strong>Versioned files:</strong> credential-v2.json, queries-v2.json</p>
+                        <p style="color: #495057; margin-bottom: 0;">Versioned files may point to different context URLs and have modified attributes for testing different specifications or implementations.</p>
+                    </div>
                     <div id="credential-files" class="folder-tree">
                         <div class="loading">Loading credential and query files...</div>
                     </div>
@@ -470,6 +476,14 @@
             } else if (file.name === 'queries.json') {
                 icon = '🔍';
                 fileType = 'Query';
+            } else if (file.name.match(/^credential-v\d+\.json$/)) {
+                icon = '📋';
+                const version = file.name.match(/v(\d+)/)[1];
+                fileType = `Credential v${version}`;
+            } else if (file.name.match(/^queries-v\d+\.json$/)) {
+                icon = '🔍';
+                const version = file.name.match(/v(\d+)/)[1];
+                fileType = `Query v${version}`;
             } else {
                 icon = '📄';
                 fileType = 'File';
@@ -566,7 +580,7 @@
                     for (const item of items) {
                         if (item.type === 'file') {
                             // For contexts directory: include all .json files
-                            // For credentials directory: include only credential.json and queries.json
+                            // For credentials directory: include credential.json, queries.json, and versioned files
                             if (directory === 'contexts' && item.name.endsWith('.json')) {
                                 const fullPath = currentPath ? `${currentPath}/${item.name}` : item.name;
                                 jsonFiles.push({
@@ -574,7 +588,8 @@
                                     name: item.name
                                 });
                             } else if (directory === 'credentials' && 
-                                     (item.name === 'credential.json' || item.name === 'queries.json')) {
+                                     (item.name === 'credential.json' || item.name === 'queries.json' ||
+                                      item.name.match(/^credential-v\d+\.json$/) || item.name.match(/^queries-v\d+\.json$/))) {
                                 const fullPath = currentPath ? `${currentPath}/${item.name}` : item.name;
                                 jsonFiles.push({
                                     path: `${directory}/${fullPath}`,
