@@ -572,11 +572,32 @@
         async function loadFilesFromDirectory(directory, containerId, type) {
             try {
                 const response = await fetch(`${GITHUB_API_URL}/${directory}`);
+                
+                // Check if response is ok
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        throw new Error('GitHub API rate limit exceeded. Please wait and refresh the page.');
+                    }
+                    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+                }
+                
                 const files = await response.json();
+                
+                // Check if files is an array (successful response)
+                if (!Array.isArray(files)) {
+                    console.log('Unexpected response format:', files);
+                    throw new Error('Unexpected response format from GitHub API');
+                }
                 
                 const jsonFiles = [];
                 
                 async function findJsonFiles(items, currentPath = '') {
+                    // Ensure items is an array
+                    if (!Array.isArray(items)) {
+                        console.log('Items is not an array:', items);
+                        return;
+                    }
+                    
                     for (const item of items) {
                         if (item.type === 'file') {
                             // For contexts directory: include all .json files
@@ -599,11 +620,15 @@
                         } else if (item.type === 'dir') {
                             try {
                                 const subResponse = await fetch(item.url);
-                                const subFiles = await subResponse.json();
-                                const subPath = currentPath ? `${currentPath}/${item.name}` : item.name;
-                                await findJsonFiles(subFiles, subPath);
+                                if (subResponse.ok) {
+                                    const subFiles = await subResponse.json();
+                                    if (Array.isArray(subFiles)) {
+                                        const subPath = currentPath ? `${currentPath}/${item.name}` : item.name;
+                                        await findJsonFiles(subFiles, subPath);
+                                    }
+                                }
                             } catch (error) {
-                                console.log(`Could not access directory: ${item.path}`);
+                                console.log(`Could not access directory: ${item.path}`, error);
                             }
                         }
                     }
@@ -627,8 +652,25 @@
                 
             } catch (error) {
                 console.error(`Error loading files from ${directory}:`, error);
-                document.getElementById(containerId).innerHTML = 
-                    `<div class="no-results">Could not load files from ${directory}. They may not exist yet.</div>`;
+                
+                let errorMessage;
+                if (error.message.includes('rate limit')) {
+                    errorMessage = `<div class="no-results">
+                        <h4>GitHub API Rate Limit Exceeded</h4>
+                        <p>Please wait a few minutes and refresh the page.</p>
+                        <p>GitHub allows 60 requests per hour for unauthenticated users.</p>
+                        <button onclick="location.reload()" class="btn btn-primary" style="margin-top: 10px;">Refresh Page</button>
+                    </div>`;
+                } else {
+                    errorMessage = `<div class="no-results">
+                        <h4>Could not load files from ${directory}</h4>
+                        <p>Error: ${error.message}</p>
+                        <p>The directory may not exist yet or there may be a temporary issue.</p>
+                        <button onclick="location.reload()" class="btn btn-primary" style="margin-top: 10px;">Try Again</button>
+                    </div>`;
+                }
+                
+                document.getElementById(containerId).innerHTML = errorMessage;
                 return 0;
             }
         }
