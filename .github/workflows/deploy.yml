@@ -19,9 +19,9 @@ jobs:
 
       - name: Replace GitHub token placeholder
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
         run: |
-          sed -i "s/const GITHUB_TOKEN = '';/const GITHUB_TOKEN = '$GITHUB_TOKEN';/" index.html
+          sed -i "s/const GITHUB_TOKEN = ''; \/\/ Add your token here if you want higher limits/const GITHUB_TOKEN = '$PERSONAL_GITHUB_TOKEN'; \/\/ Token injected by GitHub Actions/" index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
