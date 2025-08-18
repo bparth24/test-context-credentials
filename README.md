@@ -21,13 +21,27 @@ test-context-credentials/
 │   │   └── v1.json          # PaymentTokenCredential context
 │   └── age-verification/
 │       └── v1.json          # AgeVerificationCredential context
-├── credentials/              # Sample verifiable credentials
+├── credentials/              # Sample verifiable credentials & queries
 │   ├── coupon-bundle/
-│   │   └── credential.json   # Sample coupon credential
+│   │   ├── credential.json   # Sample coupon credential
+│   │   ├── credential-v2.json # Versioned coupon credential
+│   │   ├── queries.json      # Sample queries
+│   │   └── queries-v2.json   # Versioned queries
 │   ├── loyalty-card/
-│   │   └── credential.json   # Sample loyalty credential
+│   │   ├── credential.json   # Sample loyalty credential
+│   │   ├── credential-v2.json # Versioned loyalty credential
+│   │   ├── queries.json      # Sample queries
+│   │   └── queries-v2.json   # Versioned queries
+│   ├── payment-token/
+│   │   ├── credential.json   # Sample payment token credential
+│   │   ├── credential-v2.json # Versioned payment token credential
+│   │   ├── queries.json      # Sample queries
+│   │   └── queries-v2.json   # Versioned queries
 │   └── age-verification/
-│       └── credential.json   # Sample age verification credential
+│       ├── credential.json   # Sample age verification credential
+│       ├── credential-v2.json # Versioned age verification credential
+│       ├── queries.json      # Sample queries
+│       └── queries-v2.json   # Versioned queries
 ├── index.html               # Interactive GitHub Pages interface
 └── README.md               # This file
 ```
@@ -63,6 +77,26 @@ Reference any context file in your credentials by using the GitHub Pages URL:
 | Payment Token | v1 | `https://bparth24.github.io/test-context-credentials/contexts/payment-token/v1.json` |
 | Age Verification | v1 | `https://bparth24.github.io/test-context-credentials/contexts/age-verification/v1.json` |
 
+## 📝 Versioned Files
+
+This repository includes versioned credential and query files that reference production context files for real-world testing scenarios:
+
+### File Types
+
+- **credential.json**: Test credential files using context files from this repository
+- **credential-v2.json**: Versioned credential files pointing to **production context URLs**
+- **queries.json**: Test query files for credentials using repository contexts
+- **queries-v2.json**: Versioned query files for credentials using **production contexts**
+
+### Key Difference
+
+The primary difference between original and versioned files:
+
+| File Type | Context Source | Purpose |
+|-----------|---------------|---------|
+| **Original files** (`*.json`) | Test contexts from this repository | Development and testing with local contexts |
+| **Versioned files** (`*-v2.json`) | **Production context URLs** | Testing with real-world, production-deployed contexts |
+
 ## 🧪 Testing Instructions
 
 ### Quick Testing with VC Playground
@@ -71,15 +105,15 @@ Reference any context file in your credentials by using the GitHub Pages URL:
 
 2. **Open VC Playground**: Go to [vcplayground.org](https://vcplayground.org/)
 
-3. **Select Specification Version**: 
+3. **Select Specification Version**:
    - **Age Verification Credentials**: Select **VC 1.1** (follows VC DM 1.1 Spec)
    - **All Other Credentials**: Use **VC 2.0** (follows VC DM 2.0 Spec)
 
-4. **Add Custom Credential**: 
-   - Click "Custom Credential" 
+4. **Add Custom Credential**:
+   - Click "Custom Credential"
    - Paste the copied credential URL
 
-5. **Test Issuance**: 
+5. **Test Issuance**:
    - Test with DID Authentication
    - Test without DID Authentication for simpler testing
 
@@ -95,12 +129,14 @@ Reference any context file in your credentials by using the GitHub Pages URL:
 ### Testing Scope
 
 #### ✅ Currently Tested
+
 - **Credential Issuance**: All sample credentials have been tested for successful issuance
 - **DID Authentication**: Tested both with and without DID Authentication
 - **Context Resolution**: All context files resolve correctly via GitHub Pages
 - **JSON-LD Processing**: Context expansion and compaction work as expected
 
 #### 🔄 Future Testing Scope
+
 - **Store Credential**: Store issued credentials in wallet
 - **Credential Verification**: Verify issued credentials
 - **Credential Presentation**: Create and verify presentations
@@ -108,13 +144,16 @@ Reference any context file in your credentials by using the GitHub Pages URL:
 ## 🔍 Finding Context Files
 
 ### Using the Web Interface
+
 Visit [https://bparth24.github.io/test-context-credentials/](https://bparth24.github.io/test-context-credentials/) to:
+
 - Browse files by folder structure
 - Search by filename, path, or type
 - Copy URLs with one click
 - View file contents directly
 
 ### Direct URL Pattern
+
 Context files follow this pattern:
 ```
 https://bparth24.github.io/test-context-credentials/contexts/{type}/{version}.json
